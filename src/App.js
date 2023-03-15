@@ -4,15 +4,24 @@ import Gif from './components/Gif';
 import GifList from './components/GifList';
 import GifForm from './components/GifForm';
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { getGifs } from './actions';
+// import axios from 'axios';
 
 function App(props) {
   // const gifs = data;
   // const loading = false;
   // const error = '';
 
-  const { loading } = props;
+  const { loading, error, getGifs } = props;
 
-  
+  useEffect(() => {
+    // console.log('fetch start');
+    getGifs('dogs');
+    
+    
+
+  }, []);
 
   return (
     <div className="App">
@@ -36,4 +45,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapActionsToProps = (actions) => {
+  return {                                // Same as just putting { fetchStart } in connect below
+    fetchStart: fetchStart                // You would put mapStateToProps, mapActionsToProps()
+  }
+}
+
+export default connect(mapStateToProps, { getGifs })(App);
